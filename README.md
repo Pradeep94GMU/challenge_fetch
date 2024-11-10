@@ -63,7 +63,7 @@ Clone the repository:
 once you done with maven clean package, you will get another folder which is target with .jar file. like the below:
 
 
-![Jar File](assets/pci1.jpeg)
+![Jar File](assest/pci1.jpeg)
 ## Running the Application with Docker
 To build and run the application using Docker, follow the steps below.
 
