@@ -47,28 +47,26 @@ The application is designed to store data **in-memory** during its runtime, whic
 
 ### Prerequisites
 Ensure you have the following installed:
-- **Java 17**: Verify with `java -version`
-- **Maven**: Verify with `mvn -version`
-- **Docker**: Verify with `docker --version`
+- **Java 17**: 
+- **Maven**: 
+- **Docker**: - Docker should be installed on your machine.
 
 ### Installation
-1. **Clone the repository**:
+
+## Running the Application with Docker
+
+To build and run the application using Docker, follow the steps below.
+
+### Build the Docker Image
+
+1. **Clone the repository** (if you haven't already):
    ```bash
    git clone https://github.com/Pradeep94GMU/challenge_fetch.git
-   cd challenge_fetch
-## 📦 Installation
-1. **Clone the repository**:
+   cd challenge_fetch 
+2. **Inside your project directory (where your Dockerfile is located), run the following command to build the Docker image and run the container
    ```bash
-   git clone https://github.com/Pradeep94GMU/challenge_fetch.git
-   cd challenge_fetch
-   
-Build the project: Run the following command to build the Spring Boot project using Maven:
-
-./mvnw clean install
-(Optional) Run unit tests to verify the build:
-
-./mvnw test
-
+    docker build -t receipt-processor .
+    docker run -p 8080:8080 receipt-processor
 
 ## Project Structure
 
