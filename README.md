@@ -56,3 +56,15 @@ Ensure you have the following installed:
    ```bash
    git clone https://github.com/Pradeep94GMU/challenge_fetch.git
    cd challenge_fetch
+## 📦 Installation
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Pradeep94GMU/challenge_fetch.git
+   cd challenge_fetch
+   
+Build the project: Run the following command to build the Spring Boot project using Maven:
+
+./mvnw clean install
+(Optional) Run unit tests to verify the build:
+
+./mvnw test
