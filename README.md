@@ -70,9 +70,9 @@ Build the project: Run the following command to build the Spring Boot project us
 ./mvnw test
 
 
-## project-structure
-bash
-Copy code
+## Project Structure
+
+```bash
 challenge_fetch/
 ├── src/
 │   ├── main/java/com/pradeep/receipt_processor/
