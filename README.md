@@ -50,13 +50,13 @@ Ensure you have the following installed:
 ### Steps Instruction
 
 Clone the repository:
-    ```bash 
+     
     
     git clone https://github.com/Pradeep94GMU/challenge_fetch.git
     cd challenge_fetch
 
 ## Running the Application with Maven
-    ```bash
+    
     mvn clean package
 
 ## Running the Application with Docker
@@ -66,11 +66,11 @@ Steps
 
   Build the Docker image:
   
-    ```bash
+    
     docker build -t receipt-processor .
   Run the Docker container:
   
-    ```bash
+    
     docker run -p 8080:8080 receipt-processor
   Access the application at http://localhost:8080.
 
@@ -80,35 +80,35 @@ Endpoint: /api/v1/receipts/process
 Method: POST
 Description: Processes receipt and returns calculated points.
 Example Request:
-    ```bash
-    {
-      "retailer": "Target",
-      "purchaseDate": "2022-01-01",
-      "purchaseTime": "13:01",
-      "items": [
+    
         {
-          "shortDescription": "Mountain Dew 12PK",
-          "price": "6.49"
-        },{
-          "shortDescription": "Emils Cheese Pizza",
-          "price": "12.25"
-        },{
-          "shortDescription": "Knorr Creamy Chicken",
-          "price": "1.26"
-        },{
-          "shortDescription": "Doritos Nacho Cheese",
-          "price": "3.35"
-        },{
-          "shortDescription": "   Klarbrunn 12-PK 12 FL OZ  ",
-          "price": "12.00"
+          "retailer": "Target",
+          "purchaseDate": "2022-01-01",
+          "purchaseTime": "13:01",
+          "items": [
+            {
+              "shortDescription": "Mountain Dew 12PK",
+              "price": "6.49"
+            },{
+              "shortDescription": "Emils Cheese Pizza",
+              "price": "12.25"
+            },{
+              "shortDescription": "Knorr Creamy Chicken",
+              "price": "1.26"
+            },{
+              "shortDescription": "Doritos Nacho Cheese",
+              "price": "3.35"
+            },{
+              "shortDescription": "   Klarbrunn 12-PK 12 FL OZ  ",
+              "price": "12.00"
+            }
+          ],
+          "total": "35.35"
         }
-      ],
-      "total": "35.35"
-    }
 
 ## Example Response:
 
-    ```bash
+    
     {"id":"411f0efa-20fb-4a3d-a7da-1c00fdc06871"}
 
 ### 2. Retrieve Points
@@ -116,12 +116,12 @@ Endpoint: /api/v1/receipts/{id}/points
 Method: GET
 Example Response:
 
-    ```bash
+    
     {
       "points": 28
     }
 Also, You can see the detail explaination in the console. like the below:
-    ```bash
+    
     
             Starting Points Calculation...
             Retailer Name Points: 6
@@ -141,15 +141,15 @@ Also, You can see the detail explaination in the console. like the below:
 
 ## Project Structure
 
-```bash
-challenge_fetch/
-├── src/
-│   ├── main/java/com/pradeep/receipt_processor/
-│   ├── controller/        # API controllers
-│   ├── model/             # Data models
-│   ├── service/           # Business logic
-│   └── resources/
-│       └── application.properties
-├── Dockerfile
-├── README.md
-└── pom.xml
+
+    challenge_fetch/
+    ├── src/
+    │   ├── main/java/com/pradeep/receipt_processor/
+    │   ├── controller/        # API controllers
+    │   ├── model/             # Data models
+    │   ├── service/           # Business logic
+    │   └── resources/
+    │       └── application.properties
+    ├── Dockerfile
+    ├── README.md
+    └── pom.xml
