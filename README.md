@@ -6,19 +6,15 @@
 - [Features](#features)
 - [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
 - [Running the Application](#running-the-application)
   - [Running with Maven](#running-with-maven)
   - [Running with Docker](#running-with-docker)
-- [API Documentation](#api-documentation)
+
   - [Endpoints](#endpoints)
   - [Example Requests](#example-requests)
 - [Testing the Application](#testing-the-application)
 - [Project Structure](#project-structure)
-- [Error Handling](#error-handling)
-- [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Project Overview
 The **Receipt Processor** application is a microservice built with Spring Boot. It calculates points based on receipt details provided by users. Points are determined by:
@@ -51,22 +47,97 @@ Ensure you have the following installed:
 - **Maven**: 
 - **Docker**: - Docker should be installed on your machine.
 
-### Installation
+### Steps Instruction
+
+Clone the repository:
+    ```bash 
+    
+    git clone https://github.com/Pradeep94GMU/challenge_fetch.git
+    cd challenge_fetch
+
+## Running the Application with Maven
+    ```bash
+    mvn clean package
 
 ## Running the Application with Docker
-
 To build and run the application using Docker, follow the steps below.
 
-### Build the Docker Image
+Steps
 
-1. **Clone the repository** (if you haven't already):
-   ```bash
-   git clone https://github.com/Pradeep94GMU/challenge_fetch.git
-   cd challenge_fetch 
-2. **Inside your project directory (where your Dockerfile is located), run the following command to build the Docker image and run the container
-   ```bash
+  Build the Docker image:
+  
+    ```bash
     docker build -t receipt-processor .
+  Run the Docker container:
+  
+    ```bash
     docker run -p 8080:8080 receipt-processor
+  Access the application at http://localhost:8080.
+
+## example-requests
+1. Process Receipt
+Endpoint: /api/v1/receipts/process
+Method: POST
+Description: Processes receipt and returns calculated points.
+Example Request:
+    ```bash
+    {
+      "retailer": "Target",
+      "purchaseDate": "2022-01-01",
+      "purchaseTime": "13:01",
+      "items": [
+        {
+          "shortDescription": "Mountain Dew 12PK",
+          "price": "6.49"
+        },{
+          "shortDescription": "Emils Cheese Pizza",
+          "price": "12.25"
+        },{
+          "shortDescription": "Knorr Creamy Chicken",
+          "price": "1.26"
+        },{
+          "shortDescription": "Doritos Nacho Cheese",
+          "price": "3.35"
+        },{
+          "shortDescription": "   Klarbrunn 12-PK 12 FL OZ  ",
+          "price": "12.00"
+        }
+      ],
+      "total": "35.35"
+    }
+
+## Example Response:
+
+    ```bash
+    {"id":"411f0efa-20fb-4a3d-a7da-1c00fdc06871"}
+
+### 2. Retrieve Points
+Endpoint: /api/v1/receipts/{id}/points
+Method: GET
+Example Response:
+
+    ```bash
+    {
+      "points": 28
+    }
+Also, You can see the detail explaination in the console. like the below:
+    ```bash
+    
+            Starting Points Calculation...
+            Retailer Name Points: 6
+            Round Dollar Total: 0 (not round)
+            Multiple of 0.25: 0 (not a multiple of 0.25)
+            Total Points from Amount: 0
+            Items Points: 5 (2 items give 5 points)
+            Item: "Cereal" Price: 2.99 - Points: 1 (description length multiple of 3)
+            Item: "Milk" Price: 3.49 - Points: 0 (description length not multiple of 3)
+            Item Price Points: 1
+            Purchase Date Points: 6 (2023-11-01 is an odd day)
+            Purchase Time Points: 10 (time is between 2 PM and 4 PM)
+            Total Points: 28
+
+
+
 
 ## Project Structure
 
