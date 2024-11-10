@@ -18,7 +18,7 @@ public class ReceiptStorage {
     }
 
     public Receipt getReceiptById(String id) {
-        System.out.println(receiptMap);
+        //System.out.println(receiptMap);
         return receiptMap.get(id);
     }
 }
