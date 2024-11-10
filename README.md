@@ -1,56 +1,72 @@
-# challenge_fetch
-Receipt Processor Application
-Table of Contents
+📄 Receipt Processor Application
+📚 Table of Contents
 Project Overview
 Technologies Used
 Features
-Getting Started
+Setup Instructions
 Prerequisites
 Installation
-How to Run
+Running the Application
 Running with Maven
 Running with Docker
-API Endpoints
-Example Usage
-Testing
+API Documentation
+Endpoints
+Example Requests
+Testing the Application
 Project Structure
+Error Handling
 Future Enhancements
+Contributing
 License
 Project Overview
-The Receipt Processor application is a Spring Boot service that processes receipts and calculates points based on various criteria. The points calculation is based on the retailer's name, total amount, item descriptions, purchase date, and time. The service stores data in memory and does not require an external database.
+The Receipt Processor application is a microservice built with Spring Boot. It calculates points based on receipt details provided by users. Points are determined by:
+
+The length of the retailer's name
+Specific characteristics of the total amount
+Details of the purchased items
+The date and time of purchase
+The application is designed to store data in-memory during its runtime, which means data will not persist after the application stops. The service is evaluated based on its ability to provide correct results and easy setup using Docker.
 
 Technologies Used
-Java 17
-Spring Boot 3
-Maven
-Docker
+Java: Version 17
+Spring Boot: Version 3.x
+Maven: Version 3.8+
+Docker: For containerization
 Features
-Calculate points based on retailer name, total amount, item details, purchase date, and time.
-In-memory storage of receipt data.
-REST API for receipt processing.
-Docker support for easy setup and execution.
-Getting Started
+🏷️ Retailer Name Points: Points are awarded based on the count of alphanumeric characters in the retailer's name.
+💵 Total Amount Points: Points for round dollar totals and multiples of 0.25.
+📦 Item Description Points: Bonus points for every two items on the receipt.
+🛒 Item Price Points: Bonus points based on item description length.
+🗓️ Purchase Date Points: Bonus points for odd-numbered purchase dates.
+⏰ Purchase Time Points: Bonus points for purchases made between 2 PM and 4 PM.
+Setup Instructions
 Prerequisites
-Java 17 or higher
-Maven 3.8+
-Docker
+Ensure you have the following installed:
+
+Java 17: Verify with java -version
+Maven: Verify with mvn -version
+Docker: Verify with docker --version
 Installation
 Clone the repository:
 bash
 Copy code
 git clone https://github.com/Pradeep94GMU/challenge_fetch.git
 cd challenge_fetch
-Build the project using Maven:
+Build the project:
 bash
 Copy code
 ./mvnw clean install
-How to Run
+(Optional): Run unit tests to verify the build:
+bash
+Copy code
+./mvnw test
+Running the Application
 Running with Maven
-Start the Spring Boot application:
+Start the Spring Boot application using Maven:
 bash
 Copy code
 ./mvnw spring-boot:run
-The application will start on http://localhost:8080.
+The application will be accessible at http://localhost:8080.
 Running with Docker
 Build the Docker image:
 bash
@@ -60,59 +76,65 @@ Run the Docker container:
 bash
 Copy code
 docker run -p 8080:8080 receipt-processor-app
-The application will be available at http://localhost:8080.
-API Endpoints
+Visit http://localhost:8080 in your browser or use Postman to interact with the API.
+API Documentation
+Endpoints
 1. Process Receipt
-URL: /api/v1/receipts/process
+Endpoint: /api/v1/receipts/process
 Method: POST
-Description: Calculates points based on the receipt details provided in the request.
+Description: Processes a receipt and calculates points based on receipt details.
 Request Body:
 json
 Copy code
 {
-  "retailer": "Target",
-  "total": "35.35",
+  "retailer": "Walmart",
+  "total": "25.50",
   "items": [
-    {"shortDescription": "Cereal", "price": "2.99"},
-    {"shortDescription": "Milk", "price": "3.49"}
+    {"shortDescription": "Bread", "price": "2.50"},
+    {"shortDescription": "Milk", "price": "3.50"}
   ],
-  "purchaseDate": "2023-11-01",
+  "purchaseDate": "2024-11-10",
   "purchaseTime": "15:30"
 }
 Response:
 json
 Copy code
 {
-  "points": 27
+  "id": "receipt-123",
+  "points": 36
 }
 2. Retrieve Points
-URL: /api/v1/receipts/{id}/points
+Endpoint: /api/v1/receipts/{id}/points
 Method: GET
-Description: Retrieves the points for a specific receipt by ID.
+Description: Retrieves the points for a specific receipt using its ID.
 Response:
 json
 Copy code
 {
-  "points": 27
+  "points": 36
 }
-Example Usage
-Using Curl
+Example Requests
+Using Curl:
+
 bash
 Copy code
 curl -X POST http://localhost:8080/api/v1/receipts/process \
 -H "Content-Type: application/json" \
--d '{"retailer": "Target", "total": "35.35", "items": [{"shortDescription": "Cereal", "price": "2.99"}, {"shortDescription": "Milk", "price": "3.49"}], "purchaseDate": "2023-11-01", "purchaseTime": "15:30"}'
-Using Postman
-Open Postman and create a new POST request.
-URL: http://localhost:8080/api/v1/receipts/process
-In the Body tab, select raw and set it to JSON.
-Paste the request body and send the request.
-Testing
-You can run unit tests using Maven:
+-d '{"retailer": "Walmart", "total": "25.50", "items": [{"shortDescription": "Bread", "price": "2.50"}, {"shortDescription": "Milk", "price": "3.50"}], "purchaseDate": "2024-11-10", "purchaseTime": "15:30"}'
+Using Postman:
+
+Create a new POST request.
+Set the URL to http://localhost:8080/api/v1/receipts/process.
+Use raw JSON in the Body section with the above payload.
+Click Send to get a response.
+Testing the Application
+Run all tests using Maven:
 bash
 Copy code
 ./mvnw test
-For manual testing, use curl or tools like Postman as described above.
+Test cases include:
+Validating points calculation based on provided criteria.
+Checking corner cases like empty retailer names or items with no descriptions.
 Project Structure
 bash
 Copy code
@@ -120,12 +142,26 @@ challenge_fetch/
 ├── src/
 │   ├── main/
 │   │   ├── java/com/pradeep/receipt_processor/
-│   │   │   ├── controller/         # REST Controllers
-│   │   │   ├── model/              # Data Models
-│   │   │   ├── service/            # Service Layer
+│   │   │   ├── controller/         # REST API Controllers
+│   │   │   ├── model/              # Data Models (Receipt, Item)
+│   │   │   ├── service/            # Business Logic (Points Calculator)
 │   │   └── resources/
 │   │       └── application.properties
-│   ├── test/java/com/pradeep/receipt_processor/ # Unit Tests
+│   └── test/
+│       └── java/com/pradeep/receipt_processor/ # Unit Tests
 ├── Dockerfile
 ├── README.md
 └── pom.xml
+Error Handling
+Invalid Input: Returns HTTP 400 with an error message.
+json
+Copy code
+{
+  "error": "Invalid request payload"
+}
+Receipt Not Found: Returns HTTP 404 if the requested receipt ID does not exist.
+json
+Copy code
+{
+  "error": "Receipt not found"
+}
