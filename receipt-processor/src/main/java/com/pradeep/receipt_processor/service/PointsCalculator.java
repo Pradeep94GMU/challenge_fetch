@@ -42,8 +42,8 @@ public class PointsCalculator {
         BigDecimal totalAmount = new BigDecimal(total);
         int points = 0;
 
-        // Round number check
-        if (totalAmount.scale() == 0) {
+        // Check if the total amount is a round dollar amount
+        if (totalAmount.stripTrailingZeros().scale() <= 0) {
             points += 50;
         }
 
