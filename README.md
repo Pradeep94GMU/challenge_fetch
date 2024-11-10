@@ -68,3 +68,19 @@ Build the project: Run the following command to build the Spring Boot project us
 (Optional) Run unit tests to verify the build:
 
 ./mvnw test
+
+
+## project-structure
+bash
+Copy code
+challenge_fetch/
+├── src/
+│   ├── main/java/com/pradeep/receipt_processor/
+│   ├── controller/        # API controllers
+│   ├── model/             # Data models
+│   ├── service/           # Business logic
+│   └── resources/
+│       └── application.properties
+├── Dockerfile
+├── README.md
+└── pom.xml
